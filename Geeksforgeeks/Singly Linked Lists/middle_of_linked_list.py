@@ -12,7 +12,7 @@ Took me 13 mins 25 secs
 '''
 
 class node:
-    def __init__(data):
+    def __init__(self, data):
         self.data = data
         self.next = None
         

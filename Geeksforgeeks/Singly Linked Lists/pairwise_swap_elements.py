@@ -14,35 +14,29 @@ class node:
 # return head of list after swapping
 class Solution:    
     def pairWiseSwap(self, head):
-        # if LL is empty or has only one node, no swap needed
-        if not head or not head.next:
-            return head
-
-        # curr is traversal pointer
+        
         curr = head
-        # after first swap, second node becomes new head
+        # new head of list after first swap
         new_head = head.next
-        # prev keeps track of last node in the previous pair
         prev = None
-
-        # loop while there are at least two nodes to swap
+        
         while curr and curr.next:
-            # store the current pair to be swapped
-            first = curr
-            second = curr.next
-            # move curr ahead by 2 for next pair
+            # store nodes for swap
+            first = curr.next
+            second = curr
+            
+            # move to next pair
             curr = curr.next.next
-
-            # if this is not the first pair, connect the last node of previous pair to current second
+            
+            # if past the first pair, connect  previous pair to current pair's new first node (second).
             if prev:
                 prev.next = second
-
-            # swap the pair
+            
+            #swap pair
             second.next = first
             first.next = curr
-
-            # prev becomes the last node of the current pair for next loop
+            
+            # prev updated for next iteration 
             prev = first
-
-        # return the new head (was the second node in the original list)
+        
         return new_head
