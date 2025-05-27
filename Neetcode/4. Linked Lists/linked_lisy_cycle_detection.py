@@ -27,6 +27,8 @@ Output: false
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         # using hashmap to keep track of the nodes that have been visited
+        # NOTE: this is a hashSET (another way to make hash set is to use set())
+        # using set because we only need to check if a value is in there, not where it is
         seenHash = {""}
         curr = head
 
