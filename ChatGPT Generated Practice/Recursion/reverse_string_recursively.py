@@ -25,3 +25,5 @@ def reverse_string(s):
     # → "t" + "a" + "c"
     # → "tac"
     return reverse_string(s[1:]) + s[0]
+
+print(reverse_string('hello'))
