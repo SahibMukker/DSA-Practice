@@ -11,6 +11,10 @@ Expected Time Complexity: O(n)
 Expected Auxiliary Space: O(n)
 
 Completed in 13 mins 34 secs
+
+Completed in 18 mins 12 secs, understand the logic a lot more this time now that ive formally learned about hashmaps,
+it took me like 5 mins to code it because ive done twosum so much, the rest of the time was spent figuring out
+why hashmap[n] = i and not hashmap[i] = n (figured out that hashmap[i] = n is wrong because indices are being stored as values, not keys)
 '''
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
@@ -27,4 +31,24 @@ class Solution:
                 return [hashmap[diff], i]
 
             # adding iteration to the hashmap
+            hashmap[n] = i
+            
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # using hashmap to map val : index
+        hashmap = {}
+
+        # run through the list to get current index and value at that index
+        for i, n in enumerate(nums):
+            # since all inputs have a solution, target = current(n) - some val
+            # therfore some val's index is the diff between the target and n
+            diff = target - n
+            # check if this val is in the hashmap, if it is then return the indices
+            # hashmap[diff] is the number we are looking for in the hashmap,
+            # i gives the index of the number that the loop is currently at
+            #   - (the number that was used to calculate diff)
+            if diff in hashmap:
+                return [hashmap[diff], i]
+            
+            # if diff is not in hashmap, then add it to the hashmap
             hashmap[n] = i
