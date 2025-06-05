@@ -18,30 +18,31 @@ couldnt figure out key error because i didnt know how to account for if one stri
 (i.e. if one string has a letter that the other doesnt have) but then found out about .get and how i can set a default value of 0 of the character that doesnt exist
 
 ALSO if interviewer asks how to get O(1) space, can use sorting algorithm but this would increase time complexity (ex. sorted(s) == sorted(t), or create my own sorting algo)
+
+Completed in 30 mins, couldnt finish by myself, replaced old code comment code with new code that is more clear
 '''
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
-        
-        # mapping letter : num occurances
+
+        # mapping character : num occurances of that character
         hash1 = {}
         hash2 = {}
 
-        # going through the two strings counting the frequency of the different letters
-        # len(s) because both s and t are same length (so could do len(t) as well, its the same)
+        # counting the frequency of letters
         for i in range(len(s)):
-            # s[i] is the key (so everytime we encounter a letter)
-            # if key does not exist, give it default value of 0
+            # hash1[s[i]] counts occurance of characters in strings
+            # therefore hash1[] is us getting count, s[i] is going through the string
+            # and i is the index in the string (so the character we are looking at)
+            # increment previous counts of that character by 1, if it doesnt exist
+            # set it to 0 and add 1 since we just encountered it
             hash1[s[i]] = 1 + hash1.get(s[i], 0)
             hash2[t[i]] = 1 + hash2.get(t[i], 0)
         
-        # iterating through hashmap to make sure the num of letters is the same
+        # iterate through the first hash and if the count is not the same in hash 1 as hash2
+        # then return false (need to do hash2.get in the event the two hash's dont contain the same letters)
         for c in hash1:
-            # if both strings dont have same number of occurances, return false
-            # need to do .get on hash2 in case a specific letter doesnt exist, give it
-            # default value of 0
-            # because strings can be same size but composed of different letters
             if hash1[c] != hash2.get(c, 0):
                 return False
         
