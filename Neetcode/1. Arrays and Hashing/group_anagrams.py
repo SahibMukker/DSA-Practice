@@ -11,6 +11,8 @@ Expected Auxiliary Space: O(n)
 
 Completed in 37 mins 3 secs
 honestly had no idea what to do had to look up neetcode solution
+
+Completed 22 mins 19 secs, redid again and wrote more concise comment code to make understanding more clear
 '''
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
@@ -38,4 +40,27 @@ class Solution:
         
         # this only returns the grouped anagrams and not the keys, if dont do .values()
         # get error
+        return result.values()
+    
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        result = defaultdict(list)
+        
+        # iterate through list of words
+        for s in strs:
+            # making array of length 26, default val 0
+            # will increment it by index of different letters by 1 as they come up
+            count = [0]*26
+
+            # go through the characters in the word currently iterating through
+            for c in s:
+                # this array will increase occurance of whatever letter currently on
+                count[ord(c) - ord('a')] += 1
+
+            # map count to the current word, need to make count a tuple
+            # since cant put an array in a hashmap
+            result[tuple(count)].append(s)
+        
+        # return result.values since we only want the sorted list and not the keys
+        # (which is the count of the different letters)
         return result.values()
