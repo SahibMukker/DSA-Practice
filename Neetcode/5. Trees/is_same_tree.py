@@ -13,32 +13,12 @@ Output: false
 Completed in 30 mins 27 secs, forgot to account for the case where one of the trees is empty,
 original implementation i did not properly account for missing tree values, i corrected that implementation as well
 and added it
+
+RUN 2 ITERATIVE DFS IMPLEMENTATION:
+completed in 32 mins 54 secs, was orignally making 2 stacks and making copies of trees but when i tried running it and saw it wasnt working
+i realized that i dont need to make copies i needa just iterate through both and compare as i go. but i didnt know i could/should add both
+trees to 1 stack as a tuple, once i saw that, the rest of the code i fixed myself
 '''
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
-class Solution:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        # if both trees are empty, return true since empty trees are the same
-        if not p and not q:
-            return True
-        
-        # if one of the trees are empty, return false since they are not the same
-        if not p or not q:
-            return False
-
-        # if the vals do not match return false
-        if p.val != q.val:
-            return False
-        
-        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-    
-# orignal implementation that was corrected
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         
@@ -53,3 +33,39 @@ class Solution:
         
         # returns true if the two dfs results match
         return dfs(p) == dfs(q)
+    
+# RUN 2 ITERATIVE DFS
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        
+        # since comparing two trees, adding both of them to the stack as a tuple
+        stack = [(p, q)]
+        
+        while stack:
+            # unpacking current node tuple
+            node1, node2 = stack.pop()
+
+            # if in both trees current node is null, keep going
+            if not node1 and not node2:
+                continue
+            
+            # if one of the nodes is null and the other is not or if both exist but values dont match up,
+            # not same tree so return false
+            if not node1 or not node2 or node1.val != node2.val:
+                return False
+            
+            # if those checks are passed, add the next set of nodes to stack to check them
+            # adding to stack as a tuple since stack is initialized as tuple
+            stack.append((node1.left, node2.left))
+            stack.append((node1.right, node2.right))
+        
+        # default return true since all false checks have been passed
+        return True
