@@ -28,6 +28,10 @@ Completed in 58 mins 15 secs
 had right logic of solving question (go through cols and rows, if grid at current position is 1 and the coordinate is not in seen, run bfs and increment islands by 1)
 but i had no idea how to properly look at neighbours in the grid, so most of the time was spent on figuring that out, couldnt do it so looked up solution
 and spent like 20 mins trying to understand why it works and the logic behind it
+
+RUN 2:
+Completed in 19 mins 16 secs, got tripped up on one part, in the bfs if statement, was checking grid[row][col] == '1' BEFORE checking if the coord is in bounds
+which led to errors
 '''
 
 class Solution:
@@ -81,6 +85,44 @@ class Solution:
             for c in range(cols):
                 if grid[r][c] == '1' and (r, c) not in seen:
                     # BFS
+                    bfs(r, c)
+                    islands += 1
+        
+        return islands
+
+# RUN 2
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        
+        if grid is None:
+            return 0
+
+        rows, cols = len(grid), len(grid[0])
+        seen = set()
+
+        islands = 0
+
+        def bfs(r, c):
+            q = deque()
+            q.append((r, c))
+            seen.add((r, c))
+
+            while q:
+                r, c = q.popleft()
+
+                # down, up, right, left
+                directions = [[1,0], [-1,0], [0,1], [0,-1]]
+
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+
+                    if row in range(rows) and col in range(cols) and grid[row][col] == '1' and (row,col) not in seen:
+                        seen.add((row, col))
+                        q.append((row, col))
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == '1' and (r, c) not in seen:
                     bfs(r, c)
                     islands += 1
         
