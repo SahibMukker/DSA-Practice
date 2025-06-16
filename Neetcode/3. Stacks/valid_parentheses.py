@@ -22,6 +22,9 @@ Expected Time Complexity: O(n)
 Expected Auxiliary Space: O(n)
 
 Completed in 33 mins 4 secs
+
+RUN 2:
+Completed in 26 mins 19 secs, wasnt properly checking for current bracket matching open in hashmap
 '''
 class Solution:
     def isValid(self, s: str) -> bool:
@@ -44,4 +47,30 @@ class Solution:
             else:
                 stack.append(b)
 
+        return True if not stack else False
+    
+# RUN 2:
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        closeToOpen = {')' : '(', ']' : '[', '}' : '{'}
+
+        # iterate through string
+        for i in s:
+            # if current bracket is a closing bracket
+            if i in closeToOpen:
+                # if stack is not empty and top of stack matches associated open bracket in hashmap
+                if stack and stack[-1] == closeToOpen[i]:
+                    stack.pop()
+
+                # if it doesnt match, it means mismatch so return false    
+                else:
+                    return False
+
+            # its an open bracket, add it to stack
+            else:
+                stack.append(i)
+        
+        # if stack empty all brackets match so return true, else false
         return True if not stack else False
