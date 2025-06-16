@@ -2,7 +2,7 @@
 practice queue implementation, all time and space should be O(1) except dequeue which would be O(n)
 can do linked list implementation to make it all O(1), will do this a different time
 
-completed in 8 mins 30 secs
+completed in 14 mins 23 secs
 '''
 
 class Queue:
