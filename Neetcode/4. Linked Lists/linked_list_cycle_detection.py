@@ -17,6 +17,10 @@ Input: head = [1,2], index = -1
 Output: false
 
 28 mins 17 secs
+
+Run 2:
+Completed in 15 mins 4 secs, pre easy i spent most time making sure if i had the correct code cause i thought theres no way i got this in
+4 mins
 '''
 # Definition for singly-linked list.
 # class ListNode:
@@ -41,4 +45,30 @@ class Solution:
             else:
                 seenHash.add(curr)
                 curr = curr.next
+        return False
+
+# RUN 2:
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        # using hashset to keep track of nodes already seen
+        seen = set()
+        curr = head
+
+        # while curr, check if curr in seen, if it is then there is a cycle
+        while curr:
+            if curr in seen:
+                return True
+
+            # if not in hashset, add to seen since now its been seen and update next pointer
+            seen.add(curr)
+            curr = curr.next
+
+        # default false since if it dont return true in the while loop, that means
+        # there is no cycle
         return False
