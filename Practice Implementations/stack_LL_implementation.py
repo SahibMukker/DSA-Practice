@@ -1,5 +1,5 @@
 '''
-stack implementation from scratch using LLs, everything should be O(1) time, head of the list is top of stack so when adding, we adding before head.
+stack implementation from scratch using LLs, should be O(1) time and space, head of the list is top of stack so when adding, we adding before head.
 Ex: 1 -> 2 -> 3 and want to insert 4 to stack, new LL is 4 -> 1 -> 2 -> 3
 When removing, head is removed since LIFO
 Ex: 1 -> 2 -> 3 and want to remove, new LL is 2 -> 3
@@ -31,7 +31,7 @@ class Stack:
         # store curr head in temp variable, set head to be the next node, delete temp
         temp = self.head
         self.head = self.head.next
-        val = temp
+        val = temp.data
         del temp
         
         return val
