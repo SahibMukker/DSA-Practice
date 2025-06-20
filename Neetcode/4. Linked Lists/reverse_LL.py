@@ -9,6 +9,9 @@ Expected Time Complexity: O(n)
 Expected Auxiliary Space: O(1)
 
 Completed in 8 mins 57 secs
+
+RUN 2 June 20th 2025:
+Completed in 13 mins 15 secs
 '''
 # Definition for singly-linked list.
 # class ListNode:
@@ -32,4 +35,30 @@ class Solution:
             # update curr to next node for next iteration
             curr = next_node
         
+        return prev
+
+# RUN 2: June 20th 2025
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        # two pointers
+        curr = head
+        prev = None
+
+        while curr:
+            temp = curr.next
+
+            # shifting the pointers
+            curr.next = prev
+            prev = curr
+
+            # curr is now the next node in the list to be reversed
+            curr = temp
+
         return prev
