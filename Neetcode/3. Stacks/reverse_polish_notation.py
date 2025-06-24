@@ -14,6 +14,10 @@ Expected Time Complexity: O(n)
 Expected Auxiliary Space: O(n)
 
 Completed in 42 mins 10 secs
+
+RUN 2:
+Completed in 31 mins 33 secs, was ab to give up early and look at solution but i forced myself to draw out solution and figured it out
+only thing messing me up was forgetting to set num1 and num2 for - and / operations, and also forgetting to use int() to round towards 0 for /
 '''
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
@@ -50,3 +54,38 @@ class Solution:
 
         # return beginning of stack since everything but the final answer should remain in stack
         return stack[0]
+
+# RUN 2: June 24th 2025
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        
+        stack = []
+
+        for i in range(len(tokens)):
+
+            if tokens[i] == '+':
+                stack.append(stack.pop() + stack.pop())
+            
+            elif tokens[i] == '-':
+                num1 = int(stack.pop())
+                num2 = int(stack.pop())
+
+                stack.append(num2 - num1)
+            
+            elif tokens[i] == '*':
+                stack.append(stack.pop() * stack.pop())
+            
+            elif tokens[i] == '/':
+                num1 = int(stack.pop())
+                num2 = int(stack.pop())
+
+                # this rounds towards 0
+                stack.append(int(num2 / num1))
+
+            # if not an operator, add the num onto stack as int
+            else:
+                stack.append(int(tokens[i]))
+        # return beginning of stack cause need to return int not list, and first element is answer
+        return stack[0]
+
+        
