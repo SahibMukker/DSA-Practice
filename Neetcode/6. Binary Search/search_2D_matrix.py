@@ -17,8 +17,14 @@ Output: false
 Expected Time Complexity: O(log(m * n))
 Expected Auxiliary Space: O(1)
 
-Completed in 26 mins 43 secs, acc had right logic but i wasnt checking the rows properly, 
+Completed in 36 mins 43 secs, acc had right logic but i wasnt checking the rows properly, 
 (had matrix[mid][0] for both checks but should have been matrix[mid][-1] for top and matrix[mid][0] for bot)
+
+RUN 2: June 24th 2025
+Completed in 28 mins 55 secs, was doing wrong pointer change in first binary search (swapped top and bot), 
+calculated rows/cols wrong (did len(matrix), len(matrix) - 1 instead of len(matrix), len (matrix[0]))
+in second binary search did checked for mid > target instead of matrix[row][mid] > target
+
 '''
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
@@ -53,6 +59,40 @@ class Solution:
             elif matrix[row][mid] > target:
                 hi = mid - 1
             
+            else:
+                return True
+        
+        return False
+
+# RUN 2: June 24th 2025
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        rows, cols = len(matrix), len(matrix[0])
+        top, bot = 0, rows - 1
+
+        # binary search to find row
+        while top <= bot:
+            row = (top + bot) // 2
+
+            if matrix[row][-1] < target:
+                top = row + 1
+            elif matrix[row][0] > target:
+                bot = row - 1
+            else:
+                break
+        
+        # getting row
+        row = (top + bot) // 2
+        l, r = 0, cols - 1
+
+        # binary searching the row target should be in
+        while l <= r:
+            mid = (l + r) // 2
+
+            if matrix[row][mid] < target:
+                l = mid + 1
+            elif matrix[row][mid] > target:
+                r = mid - 1
             else:
                 return True
         
