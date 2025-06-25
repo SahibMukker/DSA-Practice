@@ -19,6 +19,9 @@ minStack.top();    // return 2
 minStack.getMin(); // return 1
 
 Completed in 30 mins 57 secs
+
+RUN 2: 
+Completed in 17 mins 20 secs, was not properly pushing on minstack(no if check to see if minstack is empty)
 '''
 class MinStack:
 
@@ -49,3 +52,30 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.minval[-1]
+    
+# RUN 2: June 24th 2025
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.minstack = []
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        
+        if self.minstack:
+            curr_min = min(self.minstack[-1], val)
+        else:
+            curr_min = val
+
+        self.minstack.append(curr_min)
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minstack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.minstack[-1]
