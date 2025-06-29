@@ -17,6 +17,8 @@ took me hella long to understand why temp.next is returned and not tail.next sin
 but realize that even tho tail is being updated, tail points to the LAST node in the new list, and as tail is updated,
 the node is added to temp (even tho theres no explicit temp.next)
     - since tail = temp, updates to tail will also update temp and tail points to last node in temp
+    
+RUN 3: Completed in 29 mins 39 secs
 '''
 # Definition for singly-linked list.
 # class ListNode:
@@ -83,3 +85,33 @@ class Solution:
         # tail is set to temp (as a pointer) and as list is built using tail.next
         # its also modifying temp (even tho temp itself isnt reassigned, the changes to tail are reflected in temp)
         return temp.next
+
+# Run 3
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+
+        dummy = ListNode()
+        tail = dummy
+        while list1 and list2: 
+            if list1.val < list2.val:
+                tail.next = list1
+                list1 = list1.next
+            
+            else:
+                tail.next = list2
+                list2 = list2.next
+            
+            tail = tail.next
+        
+        if list1:
+            tail.next = list1
+        else:
+            tail.next = list2
+
+        return dummy.next
