@@ -18,6 +18,8 @@ RUN 2 ITERATIVE DFS IMPLEMENTATION:
 completed in 32 mins 54 secs, was orignally making 2 stacks and making copies of trees but when i tried running it and saw it wasnt working
 i realized that i dont need to make copies i needa just iterate through both and compare as i go. but i didnt know i could/should add both
 trees to 1 stack as a tuple, once i saw that, the rest of the code i fixed myself
+
+RUN 3: completed in 27 mins 22 secs
 '''
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
