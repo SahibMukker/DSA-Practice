@@ -11,6 +11,12 @@ Expected Auxiliary Space: O(n)
 
 Completed in 55 mins 9 secs, figuring out the while loop 
 and how to use keep track of days + temps is what gave me most trouble
+
+RUN 2:
+Completed in 30 mins 43 secs
+
+Run 3:
+Completed in 34 mins 14 secs, couldnt figure why/where to implement stack, messed up inner for loop
 '''
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
@@ -41,4 +47,42 @@ class Solution:
             # append the temp and index of the temp we are currently on
             stack.append([t,i])
         
+        return result
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        
+        # res array will be size of temps with default values 0 so end is easier to worry about
+        res = [0]* len(temperatures)
+        stack = []
+
+        for i, t in enumerate(temperatures):
+            # if stack not empty and current temp (t) greater than temp at top of stack
+            # get the temp and index, update days between t and top of stack
+            while stack and t > stack[-1][0]:
+                temp, index = stack.pop()
+                res[index] = i - index
+            # add current temp and its index to top of stack
+            stack.append((t,i))
+        
+        return res
+    
+# RUN 3: July 1st 2025
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        
+        result = [0] * len(temperatures)
+        stack = [] # stack tracking tuple of temp, index
+
+        # iterate through temps and get index and temp
+        for i, t in enumerate(temperatures):
+            # while stack not empty and current temp greater than temp at top of stack
+            while stack and t > stack[-1][0]:
+                # pop and store index, update result array at index to diff between curr and next hottest
+                temp, index = stack.pop()
+                result[index] = i - index
+            
+            # adding current temp and index to stack
+            stack.append((t, i))
+
         return result

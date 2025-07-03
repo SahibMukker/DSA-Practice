@@ -25,6 +25,9 @@ Expected Auxiliary Space: O(1)
 
 Completed in 57 mins 20 secs, tried to do some calculation for howmany rotations and then based on that see which side to search on
 but i couldnt figure out how to do that so i looked at the neetcode solution
+
+Run 2:
+completed in 20 mins 3 secs, had right code but did not check for base case (if left pointer smaller than right pointer)
 '''
 class Solution:
     def findMin(self, nums: List[int]) -> int:
@@ -49,3 +52,30 @@ class Solution:
                 r = mid - 1
         
         return result
+
+# run 3: july 2nd 2025
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        # default val for result
+        l, r = 0, len(nums) - 1
+        result = nums[0]
+        
+        while l <= r:
+            # base case if leftmost val is smaller than rightmost
+            if nums[l] < nums[r]:
+                result = min(result, nums[l])
+                break
+
+            # result is the smaller val between result and curr mid
+            mid = (l + r) // 2
+            result = min(result, nums[mid])
+            
+            # if mid bigger than leftmost, answer is right of mid
+            if nums[mid] >= nums[l]:
+                l = mid + 1
+            # if mid smaller than left, answer is left of mid
+            else:
+                r = mid - 1
+        
+        return result
+        

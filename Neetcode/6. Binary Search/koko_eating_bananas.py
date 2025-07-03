@@ -20,6 +20,10 @@ Expected Auxiliary Space: O(1)
 
 Completed in 45 mins 28 secs, had rough idea but i didnt know how to efficiently get max of list 
 (thought the only way was to sort so that made time complexity bigger) and then i had l = 0 and r = len(piles) which is wrong
+
+Run 2:
+competed in 27 mins 57 secs, originally was iterating through each string and then binary search in that, which is wrong
+then i realized i need to do binary search and then iterate through array to get total time
 '''
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
@@ -50,4 +54,30 @@ class Solution:
             else:
                 l = k + 1
             
+        return result
+    
+# Run 2: July 3rd 2025
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        
+        lo, hi = 1, max(piles)
+        result = hi
+
+        while lo <= hi:
+            k = (lo + hi) // 2
+
+            # getting time taken for current k
+            time = 0
+            for i in piles:
+                time += math.ceil(float(i) / k)
+            
+            # if time <= h, update result and search left
+            if time <= h:
+                result = k
+                hi = k - 1
+                
+            # else search right
+            else:
+                lo = k + 1
+        
         return result

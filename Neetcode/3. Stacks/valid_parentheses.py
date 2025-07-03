@@ -25,6 +25,9 @@ Completed in 33 mins 4 secs
 
 RUN 2:
 Completed in 26 mins 19 secs, wasnt properly checking for current bracket matching open in hashmap
+
+Run 3: 
+completed in 13 mins 28 secs, was iterating through the string incorrectly
 '''
 class Solution:
     def isValid(self, s: str) -> bool:
@@ -73,4 +76,27 @@ class Solution:
                 stack.append(i)
         
         # if stack empty all brackets match so return true, else false
+        return True if not stack else False
+
+# Run 3: July 2nd 2025
+class Solution:
+    def isValid(self, s: str) -> bool:
+        
+        # mapping closing parentheses to open
+        hashmap = {')' : '(', ']' : '[', '}' : '{'}
+        stack = []
+
+        for i in s:
+            # if curr is closing bracket
+            if i in hashmap:
+                # if stack not empty and top of stack matches curr, pop from stack
+                if stack and stack[-1] == hashmap[i]:
+                    stack.pop()
+                # mismatch so return false
+                else:
+                    return False
+            # this means open bracket so add to stack
+            else:
+                stack.append(i)
+        
         return True if not stack else False

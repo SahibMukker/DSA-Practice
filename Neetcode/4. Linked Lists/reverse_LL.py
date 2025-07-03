@@ -12,6 +12,9 @@ Completed in 8 mins 57 secs
 
 RUN 2 June 20th 2025:
 Completed in 13 mins 15 secs
+
+RUN 3:
+Compelted in 6 mins 19 secs
 '''
 # Definition for singly-linked list.
 # class ListNode:
@@ -61,4 +64,25 @@ class Solution:
             # curr is now the next node in the list to be reversed
             curr = temp
 
+        return prev
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        curr = head
+        prev = None
+
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+
+            curr = temp
+        
         return prev

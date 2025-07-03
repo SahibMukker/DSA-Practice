@@ -15,6 +15,9 @@ Completed in 13 mins 34 secs
 Completed in 18 mins 12 secs, understand the logic a lot more this time now that ive formally learned about hashmaps,
 it took me like 5 mins to code it because ive done twosum so much, the rest of the time was spent figuring out
 why hashmap[n] = i and not hashmap[i] = n (figured out that hashmap[i] = n is wrong because indices are being stored as values, not keys)
+
+Run 3:
+Comopleted in 17 mnins 40 secs, was checking if n in hashmap instrad of diff in hashmap, wasnt doing question properly (tried to remember solution instead of work it out)
 '''
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
@@ -51,4 +54,17 @@ class Solution:
                 return [hashmap[diff], i]
             
             # if diff is not in hashmap, then add it to the hashmap
+            hashmap[n] = i
+
+# RUN 3: July 1st 2025
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # mapping num : index
+        hashmap = {}
+
+        for i, n in enumerate (nums):
+            diff = target - n
+
+            if diff in hashmap:
+                return [hashmap[diff], i]
             hashmap[n] = i
